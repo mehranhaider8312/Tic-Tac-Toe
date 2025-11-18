@@ -1,5 +1,6 @@
 package com.example.tictactoe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
-    Button btnRestart, btnReset;
+    Button btnRestart, btnReset, btnNext;
     TextView tvXScore, tvOScore;
     String b1, b2, b3, b4, b5, b6, b7, b8, b9;
     int clickFlag = 0, clickCounter = 0;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+        btnNext.setOnClickListener(V->{ moveToGuessMaster(); });
+
     }
 
     public void init() {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnRestart = findViewById(R.id.btnRestart);
         btnReset = findViewById(R.id.btnReset);
+        btnNext = findViewById(R.id.btnNextGame);
 
         tvXScore = findViewById(R.id.tvXScore);
         tvOScore = findViewById(R.id.tvOScore);
@@ -170,4 +174,9 @@ public class MainActivity extends AppCompatActivity {
         newGame();
         Toast.makeText(this, "Scores reset! New game started!", Toast.LENGTH_SHORT).show();
     }
+
+    public void moveToGuessMaster(){
+        startActivity(new Intent(MainActivity.this, GuessMaster.class));
+    }
+
 }

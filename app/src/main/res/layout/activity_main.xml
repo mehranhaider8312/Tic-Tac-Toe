@@ -176,4 +176,14 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnNextGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Guess Master"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#111"
+        android:textColor="#FFFFFF" />
+
 </LinearLayout>
