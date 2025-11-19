@@ -34,16 +34,14 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        binding.ivContactDev.setOnClickListener(v->{
+            ContactDialogUtils.setUpContactDialog(this);
+        });
 
-        setupToolbar();
         setupViewPager();
         setupBottomNavigation();
     }
 
-    private void setupToolbar() {
-        setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setTitle("Game Hub");
-    }
 
     private void setupViewPager() {
         viewPager = binding.viewPager;

@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Tic Tac Toe</string>
+    <string name="app_name">Games Hub</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tic_tac_toe">Tic Tac Toe</string>
     <string name="guess_master">Guess Master</string>
+    <string name="via_email">Via Email</string>
+    <string name="via_call">Via Call</string>
+    <string name="contact_nme">Contact\nMe</string>
 </resources>
