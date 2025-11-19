@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/navTickTacToe"
+            android:icon="@drawable/ic_tic_tac_toe"
+            android:title="@string/tic_tac_toe" />
+
+        <item
+            android:id="@+id/navGuessMaster"
+            android:icon="@drawable/ic_thinking"
+            android:title="@string/guess_master" />
+</menu>

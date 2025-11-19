@@ -1,46 +1,45 @@
-package com.example.tictactoe;
+package com.example.tictactoe.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.example.tictactoe.databinding.ActivityGuessMasterBinding;
+import com.example.tictactoe.databinding.FragmentGuessMasterBinding;
 
 import java.util.Random;
 
-public class GuessMaster extends AppCompatActivity {
-    ActivityGuessMasterBinding binding;
+public class GuessMaster extends Fragment {
+
+    private FragmentGuessMasterBinding binding;
     private int ORIGINAL_NUMBER;
     private int USER_GUESSED;
     private int attemptCount = 0;
     private int minRange = 1;
     private int maxRange = 100;
-    Random random;
+    private Random random;
     private boolean gameStarted = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        binding = ActivityGuessMasterBinding.inflate(getLayoutInflater());
-        setContentView(binding.main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentGuessMasterBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         random = new Random();
-
-        binding.btnTicTak.setOnClickListener(V->{
-            startActivity(new Intent(GuessMaster.this, MainActivity.class));
-            finish();
-        });
-        // Initial UI setup
         resetGame();
+        setupClickListeners();
+    }
 
-        // Set click listeners
+    private void setupClickListeners() {
         binding.btnStart.setOnClickListener(v -> {
             if (gameStarted) {
                 resetGame();
@@ -56,12 +55,11 @@ public class GuessMaster extends AppCompatActivity {
     }
 
     private void startGame() {
-        // Validate range inputs
         String minText = binding.etRangeMin.getText().toString().trim();
         String maxText = binding.etRangeMax.getText().toString().trim();
 
         if (minText.isEmpty() || maxText.isEmpty()) {
-            Toast.makeText(this, "Please enter both min and max values", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please enter both min and max values", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -70,22 +68,18 @@ public class GuessMaster extends AppCompatActivity {
             maxRange = Integer.parseInt(maxText);
 
             if (minRange >= maxRange) {
-                Toast.makeText(this, "Max must be greater than Min", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Max must be greater than Min", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (maxRange - minRange < 3) {
-                Toast.makeText(this, "Range must be at least 4 numbers", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Range must be at least 4 numbers", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Generate original number
             ORIGINAL_NUMBER = random.nextInt((maxRange - minRange) + 1) + minRange;
-
-            // Setup guess options
             setUpGuess(minRange, maxRange);
 
-            // Update UI - FIXED ORDER
             binding.animThinkingMonkey.setVisibility(View.GONE);
             binding.cardGuess.setVisibility(View.VISIBLE);
             binding.guessContainer.setVisibility(View.VISIBLE);
@@ -98,17 +92,15 @@ public class GuessMaster extends AppCompatActivity {
             gameStarted = true;
 
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Please enter valid numbers", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please enter valid numbers", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void setUpGuess(int min, int max) {
-        // Generate 3 random wrong guesses
         int guess1 = random.nextInt((max - min) + 1) + min;
         int guess2 = random.nextInt((max - min) + 1) + min;
         int guess3 = random.nextInt((max - min) + 1) + min;
 
-        // Ensure all wrong guesses are different from the original and each other
         while (guess1 == ORIGINAL_NUMBER) {
             guess1 = random.nextInt((max - min) + 1) + min;
         }
@@ -121,7 +113,6 @@ public class GuessMaster extends AppCompatActivity {
             guess3 = random.nextInt((max - min) + 1) + min;
         }
 
-        // Randomly place the correct answer in one of the four positions
         int correctPosition = random.nextInt(4) + 1;
 
         switch (correctPosition) {
@@ -158,11 +149,9 @@ public class GuessMaster extends AppCompatActivity {
             attemptCount++;
 
             if (USER_GUESSED == ORIGINAL_NUMBER) {
-                // Correct guess with savage comeback based on attempts! 😈
                 String victoryMessage = "";
 
                 if (attemptCount == 1) {
-                    // First try - Pure Genius!
                     String[] firstTryMessages = {
                             "🏆 UNBELIEVABLE! First try?! You're a LEGEND!",
                             "🤯 WHAT?! First guess?! Are you a mind reader?!",
@@ -172,7 +161,6 @@ public class GuessMaster extends AppCompatActivity {
                     };
                     victoryMessage = firstTryMessages[random.nextInt(firstTryMessages.length)];
                 } else if (attemptCount == 2) {
-                    // Second try - Impressive!
                     String[] secondTryMessages = {
                             "🌟 WOW! Second try! You're pretty sharp!",
                             "💪 Not bad! Two attempts! Impressive skills!",
@@ -182,7 +170,6 @@ public class GuessMaster extends AppCompatActivity {
                     };
                     victoryMessage = secondTryMessages[random.nextInt(secondTryMessages.length)];
                 } else if (attemptCount == 3) {
-                    // Third try - Decent
                     String[] thirdTryMessages = {
                             "👍 Alright! Three attempts! Not too shabby!",
                             "😊 Finally! Third try! Better late than never!",
@@ -192,7 +179,6 @@ public class GuessMaster extends AppCompatActivity {
                     };
                     victoryMessage = thirdTryMessages[random.nextInt(thirdTryMessages.length)];
                 } else {
-                    // Fourth try - Brutal honesty! 😂
                     String[] fourthTryMessages = {
                             "😅 FINALLY! Took you long enough! 4 tries seriously?!",
                             "🤦 About time! 4 attempts?! My grandma is faster!",
@@ -218,7 +204,7 @@ public class GuessMaster extends AppCompatActivity {
 
                 gameStarted = false;
             } else {
-                Log.d("WrongGuess","Entered");
+                Log.d("WrongGuess", "Entered");
                 String[] roastMessages = {
                         "😂 Are you even trying? My grandma picks better!",
                         "🤦 Seriously? A monkey could do better than this!",
@@ -243,16 +229,15 @@ public class GuessMaster extends AppCompatActivity {
                         "😒 Pathetic! Try using your brain this time!"
                 };
 
-
                 binding.tvResultText.setVisibility(View.VISIBLE);
                 String hint = USER_GUESSED < ORIGINAL_NUMBER ? "higher ⬆️" : "lower ⬇️";
                 String roast = roastMessages[random.nextInt(roastMessages.length)];
                 binding.tvResultText.setText(roast + "\nTry " + hint + "!");
                 binding.tvResultText.setTextSize(16);
-                Log.d("WrongGuess",roast + "\nTry " + hint + "!");
+                Log.d("WrongGuess", roast + "\nTry " + hint + "!");
             }
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid guess", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Invalid guess", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -267,7 +252,6 @@ public class GuessMaster extends AppCompatActivity {
         attemptCount = 0;
         gameStarted = false;
 
-        // Set default values if empty
         if (binding.etRangeMin.getText().toString().isEmpty()) {
             binding.etRangeMin.setText("1");
         }
