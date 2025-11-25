@@ -7,4 +7,6 @@
     <string name="via_email">Via Email</string>
     <string name="via_call">Via Call</string>
     <string name="contact_nme">Contact\nMe</string>
+    <string name="rock_paper_scissor">Rock Paper Scissor</string>
+    <string name="rock_paper_scissors">Rock Paper Scissors</string>
 </resources>

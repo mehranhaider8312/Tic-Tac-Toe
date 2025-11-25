@@ -58,11 +58,14 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if (position == 0){
                     binding.bottomNavigation.setSelectedItemId(R.id.navTickTacToe);
-                    updateBackgrounds(position);
+                    //updateBackgrounds(position);
                 }
-                else{
+                else if(position == 1){
                     binding.bottomNavigation.setSelectedItemId(R.id.navGuessMaster);
-                    updateBackgrounds(position);
+                    //updateBackgrounds(position);
+                }else{
+                    binding.bottomNavigation.setSelectedItemId(R.id.navRockPaperScissor);
+                    //updateBackgrounds(position);
                 }
             }
 
@@ -83,11 +86,15 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.navTickTacToe) {
                     viewPager.setCurrentItem(0, true);
-                    updateBackgrounds(0);
+                    //updateBackgrounds(0);
                     return true;
                 } else if (itemId == R.id.navGuessMaster) {
                     viewPager.setCurrentItem(1, true);
-                    updateBackgrounds(1);
+                    //updateBackgrounds(1);
+                    return true;
+                }else if (itemId == R.id.navRockPaperScissor) {
+                    viewPager.setCurrentItem(2, true);
+                    //updateBackgrounds(1);
                     return true;
                 }
                 return false;

@@ -83,6 +83,7 @@ public class GuessMaster extends Fragment {
             binding.animThinkingMonkey.setVisibility(View.GONE);
             binding.cardGuess.setVisibility(View.VISIBLE);
             binding.guessContainer.setVisibility(View.VISIBLE);
+            binding.tvResultText.setVisibility(View.VISIBLE);
             binding.tvResultText.setText("🤔 Pick the number I'm thinking of!");
             binding.tvResultText.setTextSize(18);
             binding.btnStart.setText("🔄 Play Again");
@@ -194,6 +195,7 @@ public class GuessMaster extends Fragment {
                     victoryMessage = fourthTryMessages[random.nextInt(fourthTryMessages.length)];
                 }
 
+                binding.tvResultText.setVisibility(View.VISIBLE);
                 binding.tvResultText.setText(victoryMessage);
                 binding.tvResultText.setTextSize(20);
                 binding.animFireWorks.setVisibility(View.VISIBLE);
@@ -228,10 +230,11 @@ public class GuessMaster extends Fragment {
                         "🫠 That's... impressively terrible!",
                         "😒 Pathetic! Try using your brain this time!"
                 };
-
-                binding.tvResultText.setVisibility(View.VISIBLE);
                 String hint = USER_GUESSED < ORIGINAL_NUMBER ? "higher ⬆️" : "lower ⬇️";
                 String roast = roastMessages[random.nextInt(roastMessages.length)];
+
+                // Make sure tvResultText is visible before setting text
+                binding.tvResultText.setVisibility(View.VISIBLE);
                 binding.tvResultText.setText(roast + "\nTry " + hint + "!");
                 binding.tvResultText.setTextSize(16);
                 Log.d("WrongGuess", roast + "\nTry " + hint + "!");
@@ -246,6 +249,7 @@ public class GuessMaster extends Fragment {
         binding.animFireWorks.setVisibility(View.GONE);
         binding.cardGuess.setVisibility(View.GONE);
         binding.guessContainer.setVisibility(View.GONE);
+        binding.tvResultText.setVisibility(View.VISIBLE);
         binding.tvResultText.setText("🎮 Set your range and start guessing!");
         binding.tvResultText.setTextSize(18);
         binding.btnStart.setText("🚀 Start Game");

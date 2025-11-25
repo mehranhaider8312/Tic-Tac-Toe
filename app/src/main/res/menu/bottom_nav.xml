@@ -9,4 +9,9 @@
             android:id="@+id/navGuessMaster"
             android:icon="@drawable/ic_thinking"
             android:title="@string/guess_master" />
+
+    <item
+        android:id="@+id/navRockPaperScissor"
+        android:icon="@drawable/ic_rps"
+        android:title="@string/rock_paper_scissor" />
 </menu>
