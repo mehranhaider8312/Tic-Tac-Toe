@@ -9,4 +9,5 @@
     <string name="contact_nme">Contact\nMe</string>
     <string name="rock_paper_scissor">Rock Paper Scissor</string>
     <string name="rock_paper_scissors">Rock Paper Scissors</string>
+    <string name="memory_match">Memory Match</string>
 </resources>

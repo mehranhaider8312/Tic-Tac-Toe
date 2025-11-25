@@ -14,4 +14,9 @@
         android:id="@+id/navRockPaperScissor"
         android:icon="@drawable/ic_rps"
         android:title="@string/rock_paper_scissor" />
+
+    <item
+        android:id="@+id/navMemoryMatch"
+        android:icon="@drawable/ic_memory_match"
+        android:title="Memory Match"/>
 </menu>

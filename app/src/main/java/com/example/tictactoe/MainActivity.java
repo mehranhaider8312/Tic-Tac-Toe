@@ -58,14 +58,12 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if (position == 0){
                     binding.bottomNavigation.setSelectedItemId(R.id.navTickTacToe);
-                    //updateBackgrounds(position);
-                }
-                else if(position == 1){
+                } else if(position == 1){
                     binding.bottomNavigation.setSelectedItemId(R.id.navGuessMaster);
-                    //updateBackgrounds(position);
-                }else{
+                }else if(position == 2){
                     binding.bottomNavigation.setSelectedItemId(R.id.navRockPaperScissor);
-                    //updateBackgrounds(position);
+                }else if(position == 3){
+                    binding.bottomNavigation.setSelectedItemId(R.id.navMemoryMatch);
                 }
             }
 
@@ -86,28 +84,20 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.navTickTacToe) {
                     viewPager.setCurrentItem(0, true);
-                    //updateBackgrounds(0);
                     return true;
                 } else if (itemId == R.id.navGuessMaster) {
                     viewPager.setCurrentItem(1, true);
-                    //updateBackgrounds(1);
                     return true;
                 }else if (itemId == R.id.navRockPaperScissor) {
                     viewPager.setCurrentItem(2, true);
-                    //updateBackgrounds(1);
+                    return true;
+                }else if (itemId == R.id.navMemoryMatch) {
+                    viewPager.setCurrentItem(3, true);
+
                     return true;
                 }
                 return false;
             }
         });
-    }
-    private void updateBackgrounds(int position){
-        if (position == 0){
-            binding.appbar.setBackgroundColor(R.drawable.bg_tick_tac_toe);
-            binding.bottomNavigation.setBackgroundColor(R.drawable.bg_tick_tac_toe);
-        }else{
-            binding.appbar.setBackgroundColor(R.drawable.bg_guess_master);
-            binding.bottomNavigation.setBackgroundColor(R.drawable.bg_guess_master);
-        }
     }
 }
