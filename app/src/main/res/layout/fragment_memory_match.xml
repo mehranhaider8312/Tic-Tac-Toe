@@ -8,30 +8,18 @@
     tools:context=".fragments.MemoryMatch">
 
     <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Memory Match"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/tvScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/inter_medium"
         android:text="Your Score: 0"
-        android:textColor="#BF092F"
-        android:textSize="19sp"
+        android:textStyle="bold"
+        android:textColor="#FFD600"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tvMoves"
@@ -40,8 +28,9 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/inter_medium"
         android:text="Moves: 0"
-        android:textColor="#4CAF50"
-        android:textSize="16sp"
+        android:textColor="#DD2C00"
+        android:textSize="23sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvScoreText" />

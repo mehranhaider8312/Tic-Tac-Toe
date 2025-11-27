@@ -28,12 +28,11 @@
                 android:layout_height="wrap_content"
                 android:text="Test Your Mind Reading Skills"
                 android:fontFamily="@font/poppins_bold"
-                android:textSize="14sp"
-                android:textColor="#7F8C8D"
+                android:textSize="22sp"
+                android:textColor="#64DD17"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal" />
 
-            <!-- Range Container with Card Style -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardRange"
                 android:layout_width="match_parent"
@@ -107,7 +106,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Thinking Animation -->
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animThinkingMonkey"
                 android:layout_width="match_parent"
@@ -118,7 +116,6 @@
                 app:lottie_loop="true"
                 android:visibility="visible" />
 
-            <!-- Guess Options Container -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardGuess"
                 android:layout_width="match_parent"
@@ -253,7 +250,6 @@
 
     </ScrollView>
 
-    <!-- Fireworks Animation - Overlay on top -->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animFireWorks"
         android:layout_width="match_parent"

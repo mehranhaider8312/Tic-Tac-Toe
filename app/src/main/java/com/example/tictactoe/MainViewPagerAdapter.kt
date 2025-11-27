@@ -1,21 +1,32 @@
 package com.example.tictactoe
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tictactoe.fragments.GuessMaster
 import com.example.tictactoe.fragments.MemoryMatch
 import com.example.tictactoe.fragments.RockPaperScissor
 import com.example.tictactoe.fragments.TickTacToe
 
-class MainViewPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
-    val fragments = listOf(TickTacToe(), GuessMaster(), RockPaperScissor(), MemoryMatch())
+class MainViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
-    override fun getItem(position: Int): Fragment {
-        return fragments[position]
-    }
+    private val fragments = listOf(
+        TickTacToe(),
+        GuessMaster(),
+        RockPaperScissor(),
+        MemoryMatch()
+    )
 
-    override fun getCount(): Int {
-        return fragments.size
-    }
+    private val pageTitles = listOf(
+        "Tic Tac Toe",
+        "Guess Master",
+        "Rock Paper Scissor",
+        "Memory Match"
+    )
+
+    override fun getItemCount(): Int = fragments.size
+
+    override fun createFragment(position: Int): Fragment = fragments[position]
+
+    fun getPageTitle(position: Int): String = pageTitles[position]
 }

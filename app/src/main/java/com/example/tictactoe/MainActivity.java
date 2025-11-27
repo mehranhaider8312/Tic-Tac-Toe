@@ -1,25 +1,27 @@
 package com.example.tictactoe;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.tictactoe.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ViewPager viewPager;
-    private BottomNavigationView bottomNav;
+    private ViewPager2 viewPager;
+    private TabLayout tabLayout;
     private MainViewPagerAdapter adapter;
 
     @Override
@@ -34,70 +36,80 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        binding.ivContactDev.setOnClickListener(v->{
+
+        binding.ivContactDev.setOnClickListener(v -> {
             ContactDialogUtils.setUpContactDialog(this);
         });
 
         setupViewPager();
-        setupBottomNavigation();
+        setupTabLayout();
+        setUpCustomTab();
     }
 
+    private void setUpCustomTab() {
+        // Set custom views for all tabs
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null) {
+                View customTabView = LayoutInflater.from(this)
+                        .inflate(R.layout.custom_tab_layout, null, false);
+
+                TextView tvTabTitle = customTabView.findViewById(R.id.tabText);
+                tvTabTitle.setText(adapter.getPageTitle(i));
+                tab.setCustomView(customTabView);
+
+                // Set initial appearance
+                if (i == 0) {
+                    tvTabTitle.setBackgroundResource(R.drawable.bg_tab_active);
+                    tvTabTitle.setTextColor(Color.WHITE);
+                } else {
+                    tvTabTitle.setBackgroundResource(R.drawable.bg_tab_inactive);
+                    tvTabTitle.setTextColor(Color.BLACK);
+                }
+            }
+        }
+    }
 
     private void setupViewPager() {
         viewPager = binding.viewPager;
-        adapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        adapter = new MainViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    }
 
+    private void setupTabLayout() {
+        tabLayout = binding.tabLayout;
+
+        // Connect TabLayout with ViewPager2 using TabLayoutMediator
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            // We'll set text manually in setUpCustomTab
+        }).attach();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void onTabSelected(TabLayout.Tab tab) {
+                updateTabAppearance(tab, true);
             }
 
             @Override
-            public void onPageSelected(int position) {
-                if (position == 0){
-                    binding.bottomNavigation.setSelectedItemId(R.id.navTickTacToe);
-                } else if(position == 1){
-                    binding.bottomNavigation.setSelectedItemId(R.id.navGuessMaster);
-                }else if(position == 2){
-                    binding.bottomNavigation.setSelectedItemId(R.id.navRockPaperScissor);
-                }else if(position == 3){
-                    binding.bottomNavigation.setSelectedItemId(R.id.navMemoryMatch);
-                }
+            public void onTabUnselected(TabLayout.Tab tab) {
+                updateTabAppearance(tab, false);
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
-    private void setupBottomNavigation() {
-        bottomNav = binding.bottomNavigation;
-
-        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.navTickTacToe) {
-                    viewPager.setCurrentItem(0, true);
-                    return true;
-                } else if (itemId == R.id.navGuessMaster) {
-                    viewPager.setCurrentItem(1, true);
-                    return true;
-                }else if (itemId == R.id.navRockPaperScissor) {
-                    viewPager.setCurrentItem(2, true);
-                    return true;
-                }else if (itemId == R.id.navMemoryMatch) {
-                    viewPager.setCurrentItem(3, true);
-
-                    return true;
-                }
-                return false;
+    private void updateTabAppearance(TabLayout.Tab tab, boolean selected) {
+        if (tab.getCustomView() != null) {
+            TextView tabText = tab.getCustomView().findViewById(R.id.tabText);
+            if (selected) {
+                tabText.setBackgroundResource(R.drawable.bg_tab_active);
+                tabText.setTextColor(Color.WHITE);
+            } else {
+                tabText.setBackgroundResource(R.drawable.bg_tab_inactive);
+                tabText.setTextColor(Color.BLACK);
             }
-        });
+        }
     }
 }
